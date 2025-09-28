@@ -77,9 +77,9 @@ public class EmailGeneratorService {
 
 
         StringBuilder promt= new StringBuilder();
-        promt.append("Generate a professional email reply for the following email content. Please don't generate a subject line ");
+        promt.append("Generate only a professional email reply for the following email content. Do not include a subject line or any introductory text. Just one email reply. Greetings like Hello and sign off like sincerly,yours etc are  needed.");
         if(emailRequest.getTone()!=null && !emailRequest.getTone().isEmpty()){
-            promt.append("USe a ").append(emailRequest.getTone()).append(" tone.");
+            promt.append(" Use a ").append(emailRequest.getTone()).append(" tone.");
         }
 
         promt.append("\n Original email: \n").append(emailRequest.getEmailContent());

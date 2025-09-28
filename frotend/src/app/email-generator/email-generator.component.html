@@ -1,0 +1,54 @@
+<div class="container">
+  <h1>AI Email Reply Generator</h1>
+  <p>Instantly craft professional and effective email replies for any situation.</p>
+
+  <form [formGroup]="emailForm" (ngSubmit)="generateEmail()">
+    <div class="form-group">
+      <label for="emailContent">Original Email</label>
+      <textarea id="emailContent" formControlName="emailContent" rows="10" placeholder="Paste the email you received here..."></textarea>
+      @if (emailForm.get('emailContent')?.invalid && emailForm.get('emailContent')?.touched) {
+        <div class="error-message">Email content is required.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="tone">Tone of Reply</label>
+      <select id="tone" formControlName="tone">
+        @for (tone of tones; track tone) {
+          <option [value]="tone">{{ tone | titlecase }}</option>
+        }
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="emailForm.invalid || isLoading()">
+      @if (isLoading()) {
+        <span class="spinner"></span>
+        <span>Generating...</span>
+      } @else {
+        <span>Generate Reply</span>
+      }
+    </button>
+  </form>
+
+  @if (error()) {
+    <div class="error-message result-container">
+      {{ error() }}
+    </div>
+  }
+
+  @if (generatedEmail()) {
+    <div class="result-container">
+      <h2>Generated Reply</h2>
+      <div class="generated-email">
+        <pre>{{ generatedEmail() }}</pre>
+      </div>
+      <button class="copy-button" (click)="copyToClipboard(generatedEmail())">
+        @if (copySuccess()) {
+          <span>Copied!</span>
+        } @else {
+          <span>Copy to Clipboard</span>
+        }
+      </button>
+    </div>
+  }
+</div>

@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { EmailGeneratorComponent } from './email-generator/email-generator.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  imports: [EmailGeneratorComponent],
+  template: '<app-email-generator></app-email-generator>',
+  styles: []
 })
-export class App {
-  protected readonly title = signal('frotend');
-}
+export class App {}
+
