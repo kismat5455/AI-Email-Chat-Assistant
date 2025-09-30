@@ -2,6 +2,10 @@
 
 A full-stack Chrome extension that uses AI to automatically generate contextual email replies with customizable tone and length. Seamlessly integrates with Gmail and Outlook to help you respond to emails faster and more effectively.
 
+## Live Demo
+
+**Try it now:** [https://ai-email-assistant-dev-2025.uc.r.appspot.com/](https://ai-email-assistant-dev-2025.uc.r.appspot.com/)
+
 ##  Tech Stack
 
 ### Frontend
