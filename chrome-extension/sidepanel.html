@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Email Reply Assistant</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">✨</div>
+      <h1>AI Reply</h1>
+      <p class="subtitle">Intelligent email responses</p>
+    </header>
+
+    <div id="status" class="status">
+      <div class="status-dot"></div>
+      <span id="statusText">Waiting for email...</span>
+    </div>
+
+    <!-- Email Preview Section -->
+    <section id="emailSection" class="card hidden">
+      <div class="card-header">Email Preview</div>
+      <div class="email-preview">
+        <div class="email-meta">
+          <div class="email-from" id="emailFrom">Loading...</div>
+          <div class="email-subject" id="emailSubject">-</div>
+        </div>
+        <div class="email-body" id="emailBody">-</div>
+      </div>
+    </section>
+
+    <!-- Tone Selection -->
+    <section id="toneSection" class="card hidden">
+      <div class="card-header">Select Tone</div>
+      <div class="tone-selector">
+        <button class="tone-chip active" data-tone="professional">Professional</button>
+        <button class="tone-chip" data-tone="friendly">Friendly</button>
+        <button class="tone-chip" data-tone="casual">Casual</button>
+        <button class="tone-chip" data-tone="rude">Rude</button>
+        <button class="tone-chip" data-tone="sarcastic">Sarcastic</button>
+        <button class="tone-chip" data-tone="nervous">Nervous</button>
+      </div>
+    </section>
+
+    <!-- Length Selection -->
+    <section id="lengthSection" class="card hidden">
+      <div class="card-header">Email Length</div>
+      <div class="tone-selector">
+        <button class="tone-chip" data-length="short">Short</button>
+        <button class="tone-chip active" data-length="medium">Medium</button>
+        <button class="tone-chip" data-length="long">Long</button>
+      </div>
+    </section>
+
+    <!-- Reply Generation Section -->
+    <section id="replySection" class="card hidden">
+      <button id="generateBtn" class="btn-generate">
+        <span class="btn-icon">✨</span>
+        <span>Generate Reply</span>
+      </button>
+
+      <div id="loadingIndicator" class="loading hidden">
+        <div class="spinner"></div>
+        <span>Crafting your reply...</span>
+      </div>
+
+      <div id="replyContainer" class="reply-container hidden">
+        <div class="reply-header">
+          <span>Your Reply</span>
+          <button id="editBtn" class="btn-icon-only" title="Edit">
+            <span id="editIcon">✏️</span>
+          </button>
+        </div>
+        <textarea id="replyText" class="reply-text" rows="8"></textarea>
+        <div class="reply-actions">
+          <button id="copyBtn" class="btn-copy">
+            <span>📋</span>
+            <span>Copy</span>
+          </button>
+          <button id="regenerateBtn" class="btn-regenerate">
+            <span>🔄</span>
+            <span>Regenerate</span>
+          </button>
+        </div>
+        <div id="copySuccess" class="toast hidden">
+          ✓ Copied to clipboard!
+        </div>
+      </div>
+    </section>
+
+
+    <footer>
+      <button id="refreshBtn" class="btn-refresh" title="Refresh email">
+        🔄 Refresh
+      </button>
+    </footer>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

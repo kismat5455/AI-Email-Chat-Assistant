@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Placeholder Icons</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .container {
+      background: white;
+      color: #333;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      text-align: center;
+    }
+    .icon-preview {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .icon-box {
+      text-align: center;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    canvas {
+      border: 2px solid #667eea;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 5px;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .instructions {
+      background: #e3f2fd;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 4px solid #2196F3;
+    }
+    .instructions ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .instructions li {
+      margin: 8px 0;
+    }
+    .emoji-display {
+      font-size: 80px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📧 Create Extension Icons</h1>
+    
+    <div class="instructions">
+      <h3>How to Use:</h3>
+      <ol>
+        <li>The icons below are automatically generated</li>
+        <li>Click "Download" button under each icon</li>
+        <li>Save them to the <code>icons/</code> folder with exact names</li>
+        <li>Load your extension in Chrome!</li>
+      </ol>
+      <p><strong>File names (must be exact):</strong></p>
+      <ul>
+        <li>icon16.png</li>
+        <li>icon48.png</li>
+        <li>icon128.png</li>
+      </ul>
+    </div>
+
+    <div class="emoji-display" id="emojiDisplay">📧</div>
+
+    <div class="icon-preview">
+      <div class="icon-box">
+        <h3>16×16</h3>
+        <canvas id="icon16" width="16" height="16"></canvas>
+        <br>
+        <button onclick="downloadIcon('icon16', 'icon16.png')">Download icon16.png</button>
+      </div>
+      
+      <div class="icon-box">
+        <h3>48×48</h3>
+        <canvas id="icon48" width="48" height="48"></canvas>
+        <br>
+        <button onclick="downloadIcon('icon48', 'icon48.png')">Download icon48.png</button>
+      </div>
+      
+      <div class="icon-box">
+        <h3>128×128</h3>
+        <canvas id="icon128" width="128" height="128"></canvas>
+        <br>
+        <button onclick="downloadIcon('icon128', 'icon128.png')">Download icon128.png</button>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="downloadAll()" style="font-size: 16px; padding: 15px 30px;">
+        📥 Download All Icons
+      </button>
+    </div>
+
+    <div class="instructions" style="margin-top: 30px;">
+      <h3>💡 Tips:</h3>
+      <ul>
+        <li>These are simple placeholder icons - perfect for getting started</li>
+        <li>You can replace them later with custom designs</li>
+        <li>Use sites like icons8.com or flaticon.com for professional icons</li>
+        <li>Or keep these simple ones - they work great!</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Draw icons on canvas
+    function drawIcon(canvasId, size) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      
+      // Create gradient background
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      
+      // Fill background
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // Draw envelope
+      const padding = size * 0.15;
+      const envWidth = size - (padding * 2);
+      const envHeight = envWidth * 0.65;
+      const startX = padding;
+      const startY = (size - envHeight) / 2;
+      
+      // Envelope body
+      ctx.fillStyle = 'white';
+      ctx.fillRect(startX, startY, envWidth, envHeight);
+      
+      // Envelope flap
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(startX + envWidth / 2, startY + envHeight / 2);
+      ctx.lineTo(startX + envWidth, startY);
+      ctx.closePath();
+      ctx.fillStyle = '#f0f0f0';
+      ctx.fill();
+      
+      // Envelope outline
+      ctx.strokeStyle = '#667eea';
+      ctx.lineWidth = Math.max(1, size / 32);
+      ctx.strokeRect(startX, startY, envWidth, envHeight);
+      
+      // Draw flap lines
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(startX + envWidth / 2, startY + envHeight / 2);
+      ctx.lineTo(startX + envWidth, startY);
+      ctx.stroke();
+      
+      // Add AI sparkle (if size is large enough)
+      if (size >= 48) {
+        const sparkleSize = size / 8;
+        const sparkleX = startX + envWidth - sparkleSize;
+        const sparkleY = startY + envHeight - sparkleSize;
+        
+        ctx.fillStyle = '#FFD700';
+        ctx.font = `${sparkleSize}px Arial`;
+        ctx.fillText('✨', sparkleX, sparkleY);
+      }
+    }
+    
+    // Download a single icon
+    function downloadIcon(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+    
+    // Download all icons with a delay
+    function downloadAll() {
+      downloadIcon('icon16', 'icon16.png');
+      setTimeout(() => downloadIcon('icon48', 'icon48.png'), 500);
+      setTimeout(() => downloadIcon('icon128', 'icon128.png'), 1000);
+      alert('Downloading all 3 icons! Save them to the icons/ folder.');
+    }
+    
+    // Initialize - draw all icons
+    window.onload = function() {
+      drawIcon('icon16', 16);
+      drawIcon('icon48', 48);
+      drawIcon('icon128', 128);
+    };
+  </script>
+</body>
+</html>
