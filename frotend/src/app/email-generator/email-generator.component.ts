@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 interface EmailRequest {
   emailContent: string;
   tone: string;
+  length: string;
 }
 
 @Component({
@@ -21,7 +22,8 @@ export class EmailGeneratorComponent {
 
   emailForm = this.formBuilder.group({
     emailContent: ['', Validators.required],
-    tone: ['professional', Validators.required]
+    tone: ['professional', Validators.required],
+    length: ['medium', Validators.required]
   });
 
   generatedEmail = signal<string | null>(null);
@@ -30,6 +32,7 @@ export class EmailGeneratorComponent {
   copySuccess = signal(false);
 
   tones = ['professional', 'casual', 'friendly', 'humorous', 'nervous', 'rude'];
+  lengths = ['short', 'medium', 'long'];
 
   generateEmail() {
     if (this.emailForm.valid) {
@@ -39,7 +42,8 @@ export class EmailGeneratorComponent {
 
       const emailRequest: EmailRequest = {
         emailContent: this.emailForm.value.emailContent || '',
-        tone: this.emailForm.value.tone || 'professional'
+        tone: this.emailForm.value.tone || 'professional',
+        length: this.emailForm.value.length || 'medium'
       };
 
       this.http.post('http://localhost:8080/api/email/generate', emailRequest, { responseType: 'text' })

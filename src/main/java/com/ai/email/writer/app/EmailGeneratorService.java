@@ -77,9 +77,19 @@ public class EmailGeneratorService {
 
 
         StringBuilder promt= new StringBuilder();
-        promt.append("Generate only a professional email reply for the following email content. Do not include a subject line or any introductory text. Just one email reply. Greetings like Hello and sign off like sincerly,yours etc are  needed.");
+        promt.append("Generate only a professional email reply for the following email content. Do not include a subject line or any introductory text. Just one email reply. Greetings like Hello and sign off like sincerly,yours etc are needed.");
+
         if(emailRequest.getTone()!=null && !emailRequest.getTone().isEmpty()){
             promt.append(" Use a ").append(emailRequest.getTone()).append(" tone.");
+        }
+
+        if(emailRequest.getLength()!=null && !emailRequest.getLength().isEmpty()){
+            String lengthInstruction = switch(emailRequest.getLength().toLowerCase()) {
+                case "short" -> " Keep the reply brief and concise (2-3 sentences).";
+                case "long" -> " Provide a detailed and comprehensive reply with thorough explanations.";
+                default -> " Provide a medium-length reply with appropriate detail.";
+            };
+            promt.append(lengthInstruction);
         }
 
         promt.append("\n Original email: \n").append(emailRequest.getEmailContent());

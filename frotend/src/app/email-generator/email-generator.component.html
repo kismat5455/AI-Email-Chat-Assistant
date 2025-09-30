@@ -11,13 +11,24 @@
       }
     </div>
 
-    <div class="form-group">
-      <label for="tone">Tone of Reply</label>
-      <select id="tone" formControlName="tone">
-        @for (tone of tones; track tone) {
-          <option [value]="tone">{{ tone | titlecase }}</option>
-        }
-      </select>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="tone">Tone of Reply</label>
+        <select id="tone" formControlName="tone">
+          @for (tone of tones; track tone) {
+            <option [value]="tone">{{ tone | titlecase }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="length">Reply Length</label>
+        <select id="length" formControlName="length">
+          @for (length of lengths; track length) {
+            <option [value]="length">{{ length | titlecase }}</option>
+          }
+        </select>
+      </div>
     </div>
 
     <button type="submit" [disabled]="emailForm.invalid || isLoading()">
@@ -44,9 +55,9 @@
       </div>
       <button class="copy-button" (click)="copyToClipboard(generatedEmail())">
         @if (copySuccess()) {
-          <span>Copied!</span>
+          <span>✓ Copied!</span>
         } @else {
-          <span>Copy to Clipboard</span>
+          <span>📋 Copy to Clipboard</span>
         }
       </button>
     </div>
